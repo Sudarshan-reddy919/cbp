@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
     const signupForm = document.getElementById('signupForm');
     
-    signupForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+    signupForm.addEventListener('submit', function(event) {
+        event.preventDefault();
         
         // Get form values
         const fullName = document.getElementById('fullName').value;
@@ -13,69 +13,36 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
         
-        // Validate form
-        if (!validateForm(fullName, dob, gender, mobile, email, password, confirmPassword)) {
+        // Validate passwords match
+        if (password !== confirmPassword) {
+            alert('Passwords do not match!');
             return;
         }
+
+        // Generate account number
+        const accountNumber = generateAccountNumber();
         
-        // Here you would typically handle the signup logic
-        console.log('Signup attempt:', {
+        // Store user data in localStorage
+        const userData = {
             fullName,
             dob,
             gender,
             mobile,
             email,
-            password
-        });
+            password, // Note: In a real application, you should hash the password
+            accountNumber
+        };
         
-        // For demo purposes, show success message
-        alert('Account created successfully!');
-        window.location.href = 'index.html';
+        localStorage.setItem('userData', JSON.stringify(userData));
+        
+        // Redirect to deposit page
+        window.location.href = 'deposit.html';
     });
-    
-    function validateForm(fullName, dob, gender, mobile, email, password, confirmPassword) {
-        // Name validation
-        if (fullName.trim() === '') {
-            alert('Please enter your full name');
-            return false;
-        }
-        
-        // DOB validation
-        if (!dob) {
-            alert('Please select your date of birth');
-            return false;
-        }
-        
-        // Gender validation
-        if (!gender) {
-            alert('Please select your gender');
-            return false;
-        }
-        
-        // Mobile validation
-        if (!/^\d{10}$/.test(mobile)) {
-            alert('Please enter a valid 10-digit mobile number');
-            return false;
-        }
-        
-        // Email validation
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            alert('Please enter a valid email address');
-            return false;
-        }
-        
-        // Password validation
-        if (password.length < 8) {
-            alert('Password must be at least 8 characters long');
-            return false;
-        }
-        
-        // Password confirmation
-        if (password !== confirmPassword) {
-            alert('Passwords do not match');
-            return false;
-        }
-        
-        return true;
-    }
-}); 
+});
+
+// Function to generate a random account number
+function generateAccountNumber() {
+    const prefix = 'CB';
+    const randomNum = Math.floor(10000000 + Math.random() * 90000000);
+    return prefix + randomNum;
+} 
