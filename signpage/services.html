@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Customer Bank Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .service-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .service-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            background: var(--primary-color);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .service-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        .service-form {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        .service-form.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <div class="logo">
+                <h1>Customer Bank Portal</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
+                <li><a href="about.html">About us</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="service-options">
+            <button class="service-btn" onclick="showService('password')">Forgot Password</button>
+            <button class="service-btn" onclick="showService('account')">Forgot Account Number</button>
+            <button class="service-btn" onclick="showService('username')">Forgot Username</button>
+        </div>
+
+        <div class="login-card">
+            <!-- Password Recovery Form -->
+            <div id="passwordForm" class="service-form">
+                <div class="left-side">
+                    <h2>Reset Password</h2>
+                    <form id="resetPasswordForm">
+                        <div class="input-group">
+                            <input type="email" id="passwordEmail" placeholder="Enter your email address" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="passwordAccount" placeholder="Enter your account number" required>
+                        </div>
+                        <button type="submit" class="sign-in-btn">RESET PASSWORD</button>
+                    </form>
+                </div>
+                <div class="right-side">
+                    <h2>Need Help?</h2>
+                    <p>Enter your registered email and account number to reset your password. We'll send you a secure link to create a new password.</p>
+                    <button class="sign-up-btn" onclick="window.location.href='index.html'">BACK TO LOGIN</button>
+                </div>
+            </div>
+
+            <!-- Account Number Recovery Form -->
+            <div id="accountForm" class="service-form">
+                <div class="left-side">
+                    <h2>Recover Account Number</h2>
+                    <form id="recoverAccountForm">
+                        <div class="input-group">
+                            <input type="email" id="accountEmail" placeholder="Enter your registered email" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="accountMobile" placeholder="Enter your registered mobile number" required>
+                        </div>
+                        <button type="submit" class="sign-in-btn">RECOVER ACCOUNT</button>
+                    </form>
+                </div>
+                <div class="right-side">
+                    <h2>Need Help?</h2>
+                    <p>Enter your registered email and mobile number to recover your account number. We'll send your account details to your registered email.</p>
+                    <button class="sign-up-btn" onclick="window.location.href='index.html'">BACK TO LOGIN</button>
+                </div>
+            </div>
+
+            <!-- Username Recovery Form -->
+            <div id="usernameForm" class="service-form">
+                <div class="left-side">
+                    <h2>Recover Username</h2>
+                    <form id="recoverUsernameForm">
+                        <div class="input-group">
+                            <input type="email" id="usernameEmail" placeholder="Enter your registered email" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="usernameAccount" placeholder="Enter your account number" required>
+                        </div>
+                        <button type="submit" class="sign-in-btn">RECOVER USERNAME</button>
+                    </form>
+                </div>
+                <div class="right-side">
+                    <h2>Need Help?</h2>
+                    <p>Enter your registered email and account number to recover your username. We'll send your username to your registered email address.</p>
+                    <button class="sign-up-btn" onclick="window.location.href='index.html'">BACK TO LOGIN</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Your trusted platform for secure and seamless authentication.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Contact Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Customer Bank Portal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showService(service) {
+            // Hide all forms
+            document.querySelectorAll('.service-form').forEach(form => {
+                form.classList.remove('active');
+            });
+            
+            // Show selected form
+            document.getElementById(service + 'Form').classList.add('active');
+        }
+
+        // Add form submission handlers
+        document.getElementById('resetPasswordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add your password reset logic here
+            alert('Password reset link has been sent to your email!');
+        });
+
+        document.getElementById('recoverAccountForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add your account recovery logic here
+            alert('Account details have been sent to your email!');
+        });
+
+        document.getElementById('recoverUsernameForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add your username recovery logic here
+            alert('Username has been sent to your email!');
+        });
+
+        // Show password form by default
+        showService('password');
+    </script>
+</body>
+</html> 
