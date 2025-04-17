@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Function to generate a random account number
 function generateAccountNumber() {
-    const prefix = 'CB';
+    const prefix = 'AC';
     const randomNum = Math.floor(10000000 + Math.random() * 90000000);
     return prefix + randomNum;
 } 
